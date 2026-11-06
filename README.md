@@ -6,7 +6,7 @@
 [![Gazebo Sim](https://img.shields.io/badge/Gazebo-Sim-red?logo=gazebo)](https://gazebosim.org/)
 [![MoveIt 2](https://img.shields.io/badge/MoveIt-2-yellow)](https://moveit.ros.org/)
 
-A ROS 2 Humble workspace integrating an **Edubot/Sherpa differential-drive mobile base** with a **DOBOT ME6 six-axis manipulator** — simulation, motion planning, and autonomous navigation in one unified platform.
+A ROS 2 Humble workspace integrating a **differential-drive mobile base** with a **DOBOT ME6 six-axis manipulator** — simulation, motion planning, and autonomous navigation in one unified platform.
 
 ![Mobile manipulator hardware platform](autobot_mobile_manipulator/assets/mobile-manipulator-hardware.jpeg)
 

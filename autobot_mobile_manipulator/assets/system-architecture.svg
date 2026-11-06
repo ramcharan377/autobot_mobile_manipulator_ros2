@@ -1,48 +1,242 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="830" viewBox="0 0 1200 830">
-<defs>
-  <style>
-    .bg{fill:#0b1220}.panel{fill:#111d31;stroke:#4b6687;stroke-width:2;rx:18}
-    .title{font:700 27px sans-serif;fill:#e8f0fb}.sub{font:17px sans-serif;fill:#c5d4e8}
-    .label{font:700 19px sans-serif;fill:#e8f0fb}.small{font:15px sans-serif;fill:#b7c8dc}
-    .arrow{stroke:#7db4ff;stroke-width:3;fill:none;marker-end:url(#arr)}
-    .arrow2{stroke:#7dd3c7;stroke-width:3;fill:none;marker-end:url(#arr2)}
-  </style>
-  <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#7db4ff"/></marker>
-  <marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#7dd3c7"/></marker>
-</defs>
-<rect class="bg" width="1200" height="830"/>
-<text x="600" y="48" text-anchor="middle" class="title">ROS 2 Autonomous Mobile Manipulator — Source Architecture</text>
-<text x="600" y="78" text-anchor="middle" class="small">Sherpa / Edubot mobile base integrated with DOBOT ME6 arm</text>
-<rect class="panel" x="365" y="110" width="470" height="90"/>
-<text x="600" y="146" text-anchor="middle" class="label">Combined Robot Description</text>
-<text x="600" y="175" text-anchor="middle" class="sub">Xacro · URDF · fixed ME6 mounting joint · TF tree</text>
-<path class="arrow" d="M600 200 V246"/>
-<rect class="panel" x="70" y="248" width="500" height="160"/>
-<text x="320" y="284" text-anchor="middle" class="label">Mobile Base</text>
-<text x="320" y="318" text-anchor="middle" class="sub">Chassis · Differential drive · Wheels · Casters</text>
-<text x="320" y="350" text-anchor="middle" class="sub">Laser frame · Camera frame · Gazebo sensors</text>
-<text x="320" y="382" text-anchor="middle" class="small">edubot_description</text>
-<rect class="panel" x="630" y="248" width="500" height="160"/>
-<text x="880" y="284" text-anchor="middle" class="label">DOBOT ME6 Arm</text>
-<text x="880" y="318" text-anchor="middle" class="sub">Six revolute joints · Mount link · ME6 meshes</text>
-<text x="880" y="350" text-anchor="middle" class="sub">Combined arm planning group</text>
-<text x="880" y="382" text-anchor="middle" class="small">edubot_me6_description · edubot_me6_moveit</text>
-<path class="arrow2" d="M320 408 V456 H600 V490"/>
-<path class="arrow2" d="M880 408 V456 H600"/>
-<rect class="panel" x="190" y="492" width="820" height="110"/>
-<text x="600" y="530" text-anchor="middle" class="label">ROS 2 Humble + ros2_control</text>
-<text x="600" y="563" text-anchor="middle" class="sub">Gazebo Sim control plugin · Differential-drive controller · ME6 trajectory controller</text>
-<path class="arrow" d="M600 602 V645"/>
-<rect class="panel" x="65" y="648" width="330" height="130"/>
-<text x="230" y="686" text-anchor="middle" class="label">Simulation</text>
-<text x="230" y="718" text-anchor="middle" class="sub">Gazebo Sim · Warehouse world</text>
-<text x="230" y="749" text-anchor="middle" class="small">edubot_bringup / launch_sim</text>
-<rect class="panel" x="435" y="648" width="330" height="130"/>
-<text x="600" y="686" text-anchor="middle" class="label">Motion Planning</text>
-<text x="600" y="718" text-anchor="middle" class="sub">MoveIt 2 · OMPL · ME6 group</text>
-<text x="600" y="749" text-anchor="middle" class="small">edubot_me6_moveit</text>
-<rect class="panel" x="805" y="648" width="330" height="130"/>
-<text x="970" y="686" text-anchor="middle" class="label">Mobile Navigation</text>
-<text x="970" y="718" text-anchor="middle" class="sub">SLAM Toolbox · Nav2 · Map configs</text>
-<text x="970" y="749" text-anchor="middle" class="small">edubot_bringup / edubot_controller</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="960" viewBox="0 0 1300 960">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#070c18"/>
+    </linearGradient>
+    
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0891b2"/>
+    </linearGradient>
+
+    <linearGradient id="emeraldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="dropGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#38bdf8" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrowCyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7 Z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowEmerald" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7 Z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7 Z" fill="#a78bfa"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,1 L6,4 L0,7 Z" fill="#fbbf24"/>
+    </marker>
+
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.5px; fill: url(#headerGrad); }
+      .sub-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 500; fill: #94a3b8; }
+      .layer-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; }
+      .card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #f8fafc; }
+      .card-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #cbd5e1; }
+      .pkg-tag { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 12px; font-weight: 600; }
+      .topic-text { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 11px; fill: #7dd3fc; }
+      .conn-line { fill: none; stroke-width: 2.5; stroke-dasharray: 6 3; }
+      .conn-line-solid { fill: none; stroke-width: 2.5; }
+    </style>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1300" height="960" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Grid Pattern Overlay -->
+  <g opacity="0.08" stroke="#38bdf8" stroke-width="1">
+    <path d="M 0,80 L 1300,80 M 0,160 L 1300,160 M 0,240 L 1300,240 M 0,320 L 1300,320 M 0,400 L 1300,400 M 0,480 L 1300,480 M 0,560 L 1300,560 M 0,640 L 1300,640 M 0,720 L 1300,720 M 0,800 L 1300,800 M 0,880 L 1300,880"/>
+    <path d="M 100,0 L 100,960 M 200,0 L 200,960 M 300,0 L 300,960 M 400,0 L 400,960 M 500,0 L 500,960 M 600,0 L 600,960 M 700,0 L 700,960 M 800,0 L 800,960 M 900,0 L 900,960 M 1000,0 L 1000,960 M 1100,0 L 1100,960 M 1200,0 L 1200,960"/>
+  </g>
+
+  <!-- ==================== HEADER SECTION ==================== -->
+  <g transform="translate(50, 45)">
+    <rect x="-10" y="-15" width="1220" height="70" rx="12" fill="#1e293b" fill-opacity="0.6" stroke="#334155" stroke-width="1"/>
+    <circle cx="15" cy="20" r="14" fill="url(#cyanGlow)"/>
+    <path d="M10 20 L14 24 L21 16" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <text x="42" y="18" class="title">AUTOBOT MOBILE MANIPULATOR — SYSTEM ARCHITECTURE</text>
+    <text x="42" y="38" class="sub-title">ROS 2 Humble • Differential Drive Platform • 6-Axis DOBOT ME6 Arm • Nav2 Navigation • MoveIt 2 Motion Planning</text>
+    
+    <!-- Badges -->
+    <g transform="translate(1000, 6)">
+      <rect x="0" y="0" width="90" height="26" rx="6" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+      <text x="45" y="17" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#38bdf8">ROS 2</text>
+      <rect x="100" y="0" width="100" height="26" rx="6" fill="#10b981" fill-opacity="0.3" stroke="#34d399" stroke-width="1"/>
+      <text x="150" y="17" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#34d399">Gazebo Sim</text>
+    </g>
+  </g>
+
+  <!-- ==================== TIER 1: ROBOT DESCRIPTION & KINEMATICS ==================== -->
+  <g transform="translate(50, 130)">
+    <text x="5" y="16" class="layer-title" fill="#38bdf8">LAYER 1 • UNIFIED ROBOT MODEL &amp; KINEMATIC INTEGRATION</text>
+    
+    <!-- Card 1.1: Mobile Base -->
+    <g transform="translate(0, 30)">
+      <rect width="380" height="150" rx="14" fill="url(#cardGrad)" stroke="#0284c7" stroke-width="1.8" filter="url(#dropGlow)"/>
+      <rect x="20" y="18" width="160" height="24" rx="6" fill="#0369a1" fill-opacity="0.5"/>
+      <text x="28" y="34" class="pkg-tag" fill="#7dd3fc">autobot_description</text>
+      <text x="20" y="66" class="card-title">Mobile Base Chassis</text>
+      <text x="20" y="88" class="card-desc">• Differential-drive chassis &amp; wheel joints</text>
+      <text x="20" y="108" class="card-desc">• Dual caster wheels &amp; inertial meshes</text>
+      <text x="20" y="128" class="card-desc">• RPLiDAR C1 &amp; RGB-D depth camera frames</text>
+    </g>
+
+    <!-- Card 1.2: Joint Coupling / Mount -->
+    <g transform="translate(420, 30)">
+      <rect width="360" height="150" rx="14" fill="url(#cardGrad)" stroke="#6366f1" stroke-width="1.8"/>
+      <rect x="20" y="18" width="200" height="24" rx="6" fill="#4338ca" fill-opacity="0.5"/>
+      <text x="28" y="34" class="pkg-tag" fill="#c7d2fe">autobot_me6_description</text>
+      <text x="20" y="66" class="card-title">Mechanical &amp; TF Mount</text>
+      <text x="20" y="88" class="card-desc">• Rigid mounting transform on chassis</text>
+      <text x="20" y="108" class="card-desc">• Unified Xacro macro integration</text>
+      <text x="20" y="128" class="card-desc">• Continuous kinematic TF chain</text>
+    </g>
+
+    <!-- Card 1.3: DOBOT ME6 Arm -->
+    <g transform="translate(820, 30)">
+      <rect width="380" height="150" rx="14" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.8"/>
+      <rect x="20" y="18" width="165" height="24" rx="6" fill="#7e22ce" fill-opacity="0.5"/>
+      <text x="28" y="34" class="pkg-tag" fill="#f0abfc">autobot_me6_moveit</text>
+      <text x="20" y="66" class="card-title">DOBOT ME6 Manipulator</text>
+      <text x="20" y="88" class="card-desc">• 6 Revolute arm joints (Link 1 - Link 6)</text>
+      <text x="20" y="108" class="card-desc">• Tool flange mounting &amp; end-effector link</text>
+      <text x="20" y="128" class="card-desc">• Forward/Inverse kinematics SRDF group</text>
+    </g>
+  </g>
+
+  <!-- Connectors Tier 1 -> Tier 2 -->
+  <path d="M 240,310 L 240,370" class="conn-line-solid" stroke="#38bdf8" marker-end="url(#arrowCyan)"/>
+  <path d="M 600,310 L 600,370" class="conn-line-solid" stroke="#818cf8" marker-end="url(#arrowPurple)"/>
+  <path d="M 1010,310 L 1010,370" class="conn-line-solid" stroke="#c084fc" marker-end="url(#arrowPurple)"/>
+
+  <!-- ==================== TIER 2: CONTROL & HARDWARE ABSTRACTION LAYER ==================== -->
+  <g transform="translate(50, 370)">
+    <text x="5" y="16" class="layer-title" fill="#34d399">LAYER 2 • CONTROL, GAZEBO SIMULATION &amp; SENSOR INTERFACING</text>
+    
+    <g transform="translate(0, 30)">
+      <rect width="1200" height="155" rx="14" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.8"/>
+      
+      <!-- Sub-panel: Controllers & Twist Mux -->
+      <g transform="translate(25, 20)">
+        <rect width="360" height="115" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+        <text x="18" y="30" class="pkg-tag" fill="#34d399">autobot_controller</text>
+        <text x="18" y="55" class="card-title" font-size="15">ros2_control Managers</text>
+        <text x="18" y="78" class="card-desc">• diff_drive_controller (/cmd_vel, /odom)</text>
+        <text x="18" y="98" class="card-desc">• twist_mux (teleop / autonomous nav)</text>
+      </g>
+
+      <!-- Sub-panel: ros_gz Bridge -->
+      <g transform="translate(415, 20)">
+        <rect width="370" height="115" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+        <text x="18" y="30" class="pkg-tag" fill="#38bdf8">ros_gz_bridge &amp; ros_gz_image</text>
+        <text x="18" y="55" class="card-title" font-size="15">Bi-Directional Sim Bridge</text>
+        <text x="18" y="78" class="card-desc">• /scan (LaserScan) &amp; /camera/image_raw</text>
+        <text x="18" y="98" class="card-desc">• /clock synchronization &amp; TF broadcast</text>
+      </g>
+
+      <!-- Sub-panel: Joint Trajectory Controller -->
+      <g transform="translate(815, 20)">
+        <rect width="360" height="115" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+        <text x="18" y="30" class="pkg-tag" fill="#f59e0b">joint_trajectory_controller</text>
+        <text x="18" y="55" class="card-title" font-size="15">Arm Joint Controllers</text>
+        <text x="18" y="78" class="card-desc">• 6-DOF FollowJointTrajectory action</text>
+        <text x="18" y="98" class="card-desc">• Position &amp; velocity hardware interfaces</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connectors Tier 2 -> Tier 3 -->
+  <path d="M 240,555 L 240,615" class="conn-line-solid" stroke="#34d399" marker-end="url(#arrowEmerald)"/>
+  <path d="M 600,555 L 600,615" class="conn-line-solid" stroke="#38bdf8" marker-end="url(#arrowCyan)"/>
+  <path d="M 1010,555 L 1010,615" class="conn-line-solid" stroke="#fbbf24" marker-end="url(#arrowAmber)"/>
+
+  <!-- ==================== TIER 3: AUTONOMY, NAVIGATION & MOTION PLANNING ==================== -->
+  <g transform="translate(50, 615)">
+    <text x="5" y="16" class="layer-title" fill="#fbbf24">LAYER 3 • HIGH-LEVEL AUTONOMY &amp; LAUNCH ORCHESTRATION</text>
+
+    <!-- Card 3.1: SLAM & Navigation -->
+    <g transform="translate(0, 30)">
+      <rect width="380" height="160" rx="14" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.8"/>
+      <rect x="20" y="18" width="180" height="24" rx="6" fill="#b45309" fill-opacity="0.5"/>
+      <text x="28" y="34" class="pkg-tag" fill="#fde68a">Nav2 &amp; SLAM Toolbox</text>
+      <text x="20" y="66" class="card-title">Autonomous Mobile Nav</text>
+      <text x="20" y="88" class="card-desc">• Online asynchronous 2D mapping</text>
+      <text x="20" y="108" class="card-desc">• Costmap 2D (Global &amp; Local costmaps)</text>
+      <text x="20" y="128" class="card-desc">• NavFn planner &amp; DWB path follower</text>
+    </g>
+
+    <!-- Card 3.2: Launch Bringup -->
+    <g transform="translate(420, 30)">
+      <rect width="360" height="160" rx="14" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.8"/>
+      <rect x="20" y="18" width="140" height="24" rx="6" fill="#0284c7" fill-opacity="0.5"/>
+      <text x="28" y="34" class="pkg-tag" fill="#bae6fd">autobot_bringup</text>
+      <text x="20" y="66" class="card-title">System Bringup</text>
+      <text x="20" y="88" class="card-desc">• launch_sim.launch.py (Gazebo warehouse)</text>
+      <text x="20" y="108" class="card-desc">• nav2.launch.py (Nav stack + localization)</text>
+      <text x="20" y="128" class="card-desc">• camera.launch.py &amp; robot bringup</text>
+    </g>
+
+    <!-- Card 3.3: MoveIt 2 Motion Planning -->
+    <g transform="translate(820, 30)">
+      <rect width="380" height="160" rx="14" fill="url(#cardGrad)" stroke="#8b5cf6" stroke-width="1.8"/>
+      <rect x="20" y="18" width="150" height="24" rx="6" fill="#6d28d9" fill-opacity="0.5"/>
+      <text x="28" y="34" class="pkg-tag" fill="#ddd6fe">MoveIt 2 Engine</text>
+      <text x="20" y="66" class="card-title">Arm Motion Planning</text>
+      <text x="20" y="88" class="card-desc">• OMPL trajectory generation algorithms</text>
+      <text x="20" y="108" class="card-desc">• Collision scene representation</text>
+      <text x="20" y="128" class="card-desc">• demo.launch.py &amp; interactive planning</text>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER / ENVIRONMENTS ==================== -->
+  <g transform="translate(50, 845)">
+    <rect width="1200" height="75" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    
+    <g transform="translate(30, 24)">
+      <circle cx="12" cy="14" r="6" fill="#38bdf8"/>
+      <text x="30" y="18" font-family="sans-serif" font-size="14" font-weight="700" fill="#f8fafc">Gazebo Sim 3D World:</text>
+      <text x="210" y="18" class="card-desc">AWS RoboMaker Small Warehouse (hall1demo.world) with dynamic lighting &amp; physics</text>
+    </g>
+
+    <g transform="translate(30, 48)">
+      <circle cx="12" cy="14" r="6" fill="#a855f7"/>
+      <text x="30" y="18" font-family="sans-serif" font-size="14" font-weight="700" fill="#f8fafc">RViz2 Visualization:</text>
+      <text x="195" y="18" class="card-desc">Interactive mobile manipulator visualization, goal poses, point clouds, laser scan &amp; motion paths</text>
+    </g>
+  </g>
 </svg>

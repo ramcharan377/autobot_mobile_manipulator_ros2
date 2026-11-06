@@ -1,6 +1,6 @@
-# ROS 2 Autonomous Mobile Manipulator — Sherpa / Edubot + DOBOT ME6
+# Autobot — ROS 2 Autonomous Mobile Manipulator
 
-A ROS 2 Humble workspace integrating an Edubot/Sherpa-style differential-drive mobile base with a DOBOT ME6 six-axis manipulator. The repository preserves the project packages for robot description, simulation bringup, controller/navigation configuration, and MoveIt 2 setup.
+A ROS 2 Humble workspace integrating a differential-drive mobile base with a DOBOT ME6 six-axis manipulator. The repository preserves the project packages for robot description, simulation bringup, controller/navigation configuration, and MoveIt 2 setup.
 
 **Project integration / repository maintainer:** Athyam Ramcharan  
 **ROS distribution:** ROS 2 Humble  
@@ -20,7 +20,7 @@ The core integration joins the mobile base and the ME6 manipulator into one Xacr
 
 ![Mobile manipulator hardware platform](assets/mobile-manipulator-hardware.jpeg)
 
-*Mobile base with a mounted robotic arm.*
+*Autobot mobile manipulator platform with mounted 6-axis DOBOT arm, LiDAR, and depth camera.*
 
 
 ![System architecture](assets/system-architecture.svg)
