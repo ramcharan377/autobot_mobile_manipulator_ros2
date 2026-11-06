@@ -8,7 +8,7 @@
 
 A ROS 2 Humble workspace integrating a **differential-drive mobile base** with a **DOBOT ME6 six-axis manipulator** — simulation, motion planning, and autonomous navigation in one unified platform.
 
-![Mobile manipulator hardware platform](autobot_mobile_manipulator/assets/mobile-manipulator-hardware.jpeg)
+![Mobile manipulator hardware platform](assets/mobile-manipulator-hardware.jpeg)
 
 ---
 
@@ -24,7 +24,7 @@ A ROS 2 Humble workspace integrating a **differential-drive mobile base** with a
 
 ## 🏗️ System Architecture
 
-![System architecture](autobot_mobile_manipulator/assets/system-architecture.svg)
+![System architecture](assets/system-architecture.svg)
 
 ## 📦 Packages
 
@@ -50,7 +50,7 @@ src/
 ```bash
 # Clone the repo
 git clone https://github.com/ramcharan377/autobot_mobile_manipulator_ros2.git
-cd autobot_mobile_manipulator_ros2/autobot_mobile_manipulator
+cd autobot_mobile_manipulator_ros2
 
 # Source ROS 2
 source /opt/ros/humble/setup.bash
@@ -89,10 +89,10 @@ ros2 launch autobot_bringup nav2.launch.py
 
 ## 📄 Documentation
 
-- [Architecture Overview](autobot_mobile_manipulator/docs/ARCHITECTURE.md)
-- [Package Inventory](autobot_mobile_manipulator/docs/PACKAGE_INVENTORY.md)
-- [Validation Notes](autobot_mobile_manipulator/docs/VALIDATION_NOTES.md)
-- [Third-Party Notices](autobot_mobile_manipulator/THIRD_PARTY_NOTICES.md)
+- [Architecture Overview](docs/ARCHITECTURE.md)
+- [Package Inventory](docs/PACKAGE_INVENTORY.md)
+- [Validation Notes](docs/VALIDATION_NOTES.md)
+- [Third-Party Notices](THIRD_PARTY_NOTICES.md)
 
 ## 📝 License
 
