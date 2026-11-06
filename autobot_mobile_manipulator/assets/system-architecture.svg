@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="830" viewBox="0 0 1200 830">
+<defs>
+  <style>
+    .bg{fill:#0b1220}.panel{fill:#111d31;stroke:#4b6687;stroke-width:2;rx:18}
+    .title{font:700 27px sans-serif;fill:#e8f0fb}.sub{font:17px sans-serif;fill:#c5d4e8}
+    .label{font:700 19px sans-serif;fill:#e8f0fb}.small{font:15px sans-serif;fill:#b7c8dc}
+    .arrow{stroke:#7db4ff;stroke-width:3;fill:none;marker-end:url(#arr)}
+    .arrow2{stroke:#7dd3c7;stroke-width:3;fill:none;marker-end:url(#arr2)}
+  </style>
+  <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#7db4ff"/></marker>
+  <marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#7dd3c7"/></marker>
+</defs>
+<rect class="bg" width="1200" height="830"/>
+<text x="600" y="48" text-anchor="middle" class="title">ROS 2 Autonomous Mobile Manipulator — Source Architecture</text>
+<text x="600" y="78" text-anchor="middle" class="small">Sherpa / Edubot mobile base integrated with DOBOT ME6 arm</text>
+<rect class="panel" x="365" y="110" width="470" height="90"/>
+<text x="600" y="146" text-anchor="middle" class="label">Combined Robot Description</text>
+<text x="600" y="175" text-anchor="middle" class="sub">Xacro · URDF · fixed ME6 mounting joint · TF tree</text>
+<path class="arrow" d="M600 200 V246"/>
+<rect class="panel" x="70" y="248" width="500" height="160"/>
+<text x="320" y="284" text-anchor="middle" class="label">Mobile Base</text>
+<text x="320" y="318" text-anchor="middle" class="sub">Chassis · Differential drive · Wheels · Casters</text>
+<text x="320" y="350" text-anchor="middle" class="sub">Laser frame · Camera frame · Gazebo sensors</text>
+<text x="320" y="382" text-anchor="middle" class="small">edubot_description</text>
+<rect class="panel" x="630" y="248" width="500" height="160"/>
+<text x="880" y="284" text-anchor="middle" class="label">DOBOT ME6 Arm</text>
+<text x="880" y="318" text-anchor="middle" class="sub">Six revolute joints · Mount link · ME6 meshes</text>
+<text x="880" y="350" text-anchor="middle" class="sub">Combined arm planning group</text>
+<text x="880" y="382" text-anchor="middle" class="small">edubot_me6_description · edubot_me6_moveit</text>
+<path class="arrow2" d="M320 408 V456 H600 V490"/>
+<path class="arrow2" d="M880 408 V456 H600"/>
+<rect class="panel" x="190" y="492" width="820" height="110"/>
+<text x="600" y="530" text-anchor="middle" class="label">ROS 2 Humble + ros2_control</text>
+<text x="600" y="563" text-anchor="middle" class="sub">Gazebo Sim control plugin · Differential-drive controller · ME6 trajectory controller</text>
+<path class="arrow" d="M600 602 V645"/>
+<rect class="panel" x="65" y="648" width="330" height="130"/>
+<text x="230" y="686" text-anchor="middle" class="label">Simulation</text>
+<text x="230" y="718" text-anchor="middle" class="sub">Gazebo Sim · Warehouse world</text>
+<text x="230" y="749" text-anchor="middle" class="small">edubot_bringup / launch_sim</text>
+<rect class="panel" x="435" y="648" width="330" height="130"/>
+<text x="600" y="686" text-anchor="middle" class="label">Motion Planning</text>
+<text x="600" y="718" text-anchor="middle" class="sub">MoveIt 2 · OMPL · ME6 group</text>
+<text x="600" y="749" text-anchor="middle" class="small">edubot_me6_moveit</text>
+<rect class="panel" x="805" y="648" width="330" height="130"/>
+<text x="970" y="686" text-anchor="middle" class="label">Mobile Navigation</text>
+<text x="970" y="718" text-anchor="middle" class="sub">SLAM Toolbox · Nav2 · Map configs</text>
+<text x="970" y="749" text-anchor="middle" class="small">edubot_bringup / edubot_controller</text>
+</svg>

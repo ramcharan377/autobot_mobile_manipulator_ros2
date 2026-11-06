@@ -1,0 +1,28 @@
+# ROS 2 / colcon generated output
+build/
+install/
+log/
+.colcon/
+
+# ROS runtime and temporary data
+.ros/
+*.bag
+*.db3
+*.mcap
+*.posegraph
+*.data
+*.pbstream
+*.tmp
+*.swp
+*.swo
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local/editor/system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

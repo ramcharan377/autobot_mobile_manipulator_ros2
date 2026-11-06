@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="autobot_me6">
+
+  <xacro:arg name="initial_positions_file" default="initial_positions.yaml"/>
+
+  <!-- Complete Sherpa + ME6 robot -->
+  <xacro:include filename="$(find autobot_me6_description)/urdf/autobot_me6.urdf.xacro"/>
+
+  <!-- Fake ros2_control for MoveIt simulation -->
+  <xacro:include filename="me6_robot.ros2_control.xacro"/>
+
+  <xacro:me6_robot_ros2_control
+      name="FakeSystem"
+      initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>

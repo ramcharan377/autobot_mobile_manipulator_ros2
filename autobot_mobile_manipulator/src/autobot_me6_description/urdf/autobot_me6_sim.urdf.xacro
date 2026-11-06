@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="autobot_me6">
+
+  <!-- ================= EDUBOT ================= -->
+
+  <xacro:include filename="$(find autobot_description)/urdf/autobot.materials.xacro"/>
+
+  <xacro:include filename="$(find autobot_description)/urdf/robot_core.xacro"/>
+
+  <xacro:include filename="$(find autobot_description)/urdf/lidar.xacro"/>
+
+  <xacro:include filename="$(find autobot_description)/urdf/camera.xacro"/>
+
+
+  <!-- ================= ME6 ================= -->
+
+  <xacro:include filename="$(find autobot_me6_description)/urdf/me6_macro.xacro"/>
+
+
+  <!-- ME6 mounting plate -->
+
+  <link name="me6_mount">
+
+    <visual>
+      <geometry>
+        <box size="0.16 0.16 0.02"/>
+      </geometry>
+
+      <material name="grey">
+        <color rgba="0.4 0.4 0.4 1"/>
+      </material>
+
+    </visual>
+
+    <collision>
+      <geometry>
+        <box size="0.16 0.16 0.02"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+
+  <joint name="me6_mount_joint" type="fixed">
+
+    <parent link="chassis"/>
+
+    <child link="me6_mount"/>
+
+    <origin
+      xyz="0.21 0.0 0.27"
+      rpy="0 0 1.5708"/>
+
+  </joint>
+
+
+  <xacro:me6_arm
+      parent_link="me6_mount"
+      xyz="0 0 0"
+      rpy="0 0 0"/>
+
+
+  <!-- ================= ROS2 CONTROL ================= -->
+
+  <xacro:include filename="$(find autobot_me6_description)/urdf/mobile_manipulator_control.xacro"/>
+
+
+</robot>

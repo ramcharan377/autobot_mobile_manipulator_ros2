@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="3">
+
+  <name>autobot_me6_description</name>
+  <version>1.0.0</version>
+
+  <description>Sherpa + Dobot ME6 Mobile Manipulator</description>
+
+  <maintainer email="eng24ra1001@dsu.edu.in">Athyam Ramcharan</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>autobot_description</exec_depend>
+  <exec_depend>cra_description</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

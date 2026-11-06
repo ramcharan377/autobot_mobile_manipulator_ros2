@@ -1,0 +1,5 @@
+repositories:
+  DOBOT_6Axis_ROS2_V4:
+    type: git
+    url: https://github.com/Dobot-Arm/DOBOT_6Axis_ROS2_V4.git
+    version: 0f21e9839888f188ac06b0a9fea622d13a29a74f

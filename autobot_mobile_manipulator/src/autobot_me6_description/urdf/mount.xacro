@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="mount_me6" params="parent">
+
+    <link name="me6_mount"/>
+
+    <joint name="me6_mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="me6_mount"/>
+      <origin xyz="0.30 0 0.55" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <xacro:include filename="inertial_macros.xacro"/>
+
+    <xacro:property name="base_length" value="0.01" />
+    <xacro:property name="base_width" value="0.3" />
+    <xacro:property name="base_height" value="0.25" />
+    <xacro:property name="wheel_radius" value="0.1032" />
+    <xacro:property name="wheel_length" value="0.05" />
+    <xacro:property name="wheel_mass" value="0.5" />
+    <xacro:property name="caster_wheel_mass" value="0.2" />
+    <xacro:property name="chassis_mass" value="0.05" />
+    <xacro:property name="caster_radius" value="0.050" />
+    <xacro:property name="caster_length" value="0.02" />
+
+
+     <!-- BASE LINK -->
+    <link name="base_link">
+    </link>
+
+    <!-- BASE_FOOTPRINT LINK -->
+
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="base_footprint">
+    </link>
+
+
+    
+
+    <!-- CHASSIS LINK -->
+
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="0 0 0.1"/>
+    </joint>
+
+    <!-- CHASSIS LINK -->
+
+    <link name="chassis">
+        <visual>
+            <geometry>
+                <mesh filename="package://autobot_description/meshes/shell.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin xyz="0.35 0 0.25" rpy="0 3.14 -1.57" />
+            <material name="white" />
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://autobot_description/meshes/shell.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin xyz="0.35 0 0.25" rpy="0 3.14 -1.57" />
+        </collision>
+        <xacro:inertial_box mass="${chassis_mass}" x="${base_length}" y="${base_width}" z="${base_height}">
+            <origin xyz="0.35 0 0.25" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    
+
+    <gazebo reference="chassis">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <!-- LEFT/RIGHT WHEEL LINK -->
+
+    <xacro:macro name="wheel_link" params="prefix">
+        <link name="${prefix}_wheel">
+            <visual>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.5708 0 0" />
+                <material name="red"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <sphere radius="${wheel_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="1.5708 0 0" />
+            </collision>
+            <xacro:inertial_cylinder mass="${wheel_mass}" length="${wheel_length}" radius="${wheel_radius}">
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </xacro:inertial_cylinder>
+        </link>
+    </xacro:macro>
+
+    <xacro:wheel_link prefix="left" />
+    <xacro:wheel_link prefix="right" />
+
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="chassis" />
+        <child link="right_wheel" />
+        <origin xyz="0 ${(-(base_width) - wheel_length) / 2} 0" rpy="0 0 3.14" />
+        <axis xyz="0 -1 0" />
+    </joint>  
+
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="chassis" />
+        <child link="left_wheel" />
+        <origin xyz="0 ${((base_width) + wheel_length) / 2} 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+
+    <gazebo reference="left_wheel_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <gazebo reference="right_wheel_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+
+    <!-- CASTER WHEEL LINK -->
+        <link name="left_caster">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://autobot_description/meshes/Caster.stl" scale="0.001 0.001 0.001" /> -->
+                <cylinder radius="${caster_radius}" length="${caster_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5708 0 3.14" />
+            <material name="grey_black" />
+        </visual>
+        <collision>
+            <geometry>
+                <!-- <mesh filename="package://autobot_description/meshes/Caster.stl" scale="0.001 0.001 0.001" /> -->
+                <cylinder radius="${caster_radius}" length="${caster_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5708 0 3.14" />
+        </collision>
+        <xacro:inertial_sphere mass="${caster_wheel_mass}" radius="${caster_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+
+    <joint name="left_caster_joint" type="fixed">
+        <parent link="chassis" />
+        <child link="left_caster" />
+        <origin xyz="0.35 ${(-(base_width) - wheel_length) / 2} -0.05" rpy="0 0 0" />
+    </joint>
+
+    <link name="right_caster">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://autobot_description/meshes/Caster.stl" scale="0.001 0.001 0.001" /> -->
+                <cylinder radius="${caster_radius}" length="${caster_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5708 0 0" />
+            <material name="grey_black" />
+        </visual>
+        <collision>
+            <geometry>
+                <!-- <mesh filename="package://autobot_description/meshes/Caster.stl" scale="0.001 0.001 0.001" /> -->
+                <cylinder radius="${caster_radius}" length="${caster_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        </collision>
+        <xacro:inertial_sphere mass="${caster_wheel_mass}" radius="${caster_radius}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_sphere>
+    </link>
+
+    <joint name="right_caster_joint" type="fixed">
+        <parent link="chassis" />
+        <child link="right_caster" />
+        <origin xyz="0.35 ${((base_width) + wheel_length) / 2} -0.05" rpy="0 0 3.14" />
+    </joint>
+
+
+
+    <link name="battery">
+        <visual>
+            <geometry>
+                <mesh filename="package://autobot_description/meshes/battery.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin xyz="0.21 0.242 -0.245" rpy="0 0 3.14" />
+            <material name="grey_black" />
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://autobot_description/meshes/battery.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin xyz="0.21 0.242 -0.245" rpy="0 0 3.14" />
+        </collision>
+        <xacro:inertial_box mass="0.2" x="0.026" y="0.0135" z="0.018">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+    <joint name="cassis_battery_joint" type="fixed">
+        <parent link="chassis" />
+        <child link="battery" />
+        <origin xyz="0 0 0.1" rpy="0 0 0" />
+    </joint>
+
+    <gazebo reference="left_caster">
+        <material>Gazebo/White</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
+    <gazebo reference="right_caster">
+        <material>Gazebo/Black</material>
+        <mu1 value="0.001"/>
+        <mu2 value="0.001"/>
+    </gazebo>
+
+</robot>
